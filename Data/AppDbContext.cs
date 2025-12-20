@@ -12,11 +12,18 @@ namespace LearningManagement.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // Путь к БД в AppData для всех платформ
-            string projectPath = Path.GetDirectoryName(typeof(AppDbContext).Assembly.Location);
-            string dbPath = Path.Combine(projectPath, "learning.db");
+            string basePath = AppContext.BaseDirectory;
+
+            // Или более надёжный вариант — путь к папке проекта (работает и в Debug, и при запуске)
+            // string basePath = Path.GetDirectoryName(typeof(AppDbContext).Assembly.Location)!;
+
+            string dbPath = Path.Combine(basePath, "Data", "learning.db");
+
+            // Создаём папку Data, если её вдруг нет
+            Directory.CreateDirectory(Path.GetDirectoryName(dbPath)!);
+
             optionsBuilder.UseSqlite($"Data Source={dbPath}");
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
