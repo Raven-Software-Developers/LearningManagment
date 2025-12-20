@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using LearningManagement.Models; // Подключите модели, которые создадим ниже
+using LearningManagement.Models;
+using System.Diagnostics; // Подключите модели, которые создадим ниже
 
 namespace LearningManagement.Data
 {
@@ -12,8 +13,10 @@ namespace LearningManagement.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Путь к БД в AppData для всех платформ
-            var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "learning.db");
+            string projectPath = Path.GetDirectoryName(typeof(AppDbContext).Assembly.Location);
+            string dbPath = Path.Combine(projectPath, "learning.db");
             optionsBuilder.UseSqlite($"Data Source={dbPath}");
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
