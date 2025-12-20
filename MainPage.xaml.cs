@@ -19,20 +19,21 @@ public partial class MainPage : ContentPage
 
     private void LoadData()
     {
-        // Загружаем студентов в Picker
-        var students = _dbContext.Students.ToList();
+        var students = _dbContext.Students.Include(s => s.Grades).ToList();
+
+        StudentsList.ItemsSource = students;  // <-- Это главное!
+
         StudentPicker.ItemsSource = students;
         StudentPicker.ItemDisplayBinding = new Binding("Name");
 
-        // Загружаем предметы в Picker
-        var subjects = _dbContext.Subjects.ToList();
-        SubjectPicker.ItemsSource = subjects;
+        SubjectPicker.ItemsSource = _dbContext.Subjects.ToList();
         SubjectPicker.ItemDisplayBinding = new Binding("Name");
 
-        // Загружаем студентов со всеми оценками для расчёта среднего балла
-        StudentsList.ItemsSource = _dbContext.Students
-            .Include(s => s.Grades)
-            .ToList();
+        System.Diagnostics.Debug.WriteLine($"Студентов: {students.Count}");
+        foreach (var s in students)
+        {
+            System.Diagnostics.Debug.WriteLine($"Студент: {s.Name}, балл: {s.AverageGrade}");
+        }
     }
 
     private async void AddStudent_Clicked(object sender, EventArgs e)
@@ -101,5 +102,20 @@ public partial class MainPage : ContentPage
     private void RefreshList_Clicked(object sender, EventArgs e)
     {
         LoadData();
+    }
+
+    private async void OnStudentTapped(object sender, TappedEventArgs e)
+    {
+        if ((sender as Grid)?.BindingContext is Student selectedStudent)
+        {
+            // Загружаем оценки для выбранного студента
+            _dbContext.Entry(selectedStudent).Collection(s => s.Grades).Load();
+            foreach (var grade in selectedStudent.Grades)
+            {
+                _dbContext.Entry(grade).Reference(g => g.Subject).Load();
+            }
+
+            await Navigation.PushAsync(new StudentDetailPage(selectedStudent));
+        }
     }
 }
