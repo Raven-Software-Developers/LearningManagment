@@ -26,12 +26,6 @@ public partial class MainPage : ContentPage
 
         SubjectPicker.ItemsSource = _dbContext.Subjects.ToList();
         SubjectPicker.ItemDisplayBinding = new Binding("Name");
-
-        System.Diagnostics.Debug.WriteLine($"Студентов: {students.Count}");
-        foreach (var s in students)
-        {
-            System.Diagnostics.Debug.WriteLine($"Студент: {s.Name}, балл: {s.AverageGrade}");
-        }
     }
 
     private async void AddStudent_Clicked(object sender, EventArgs e)
