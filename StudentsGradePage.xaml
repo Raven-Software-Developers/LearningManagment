@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LearningManagment.StudentsGradesPage"
+             Title="Оценки студентов"
+             BackgroundColor="#F8FAFC">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Label Text="Выберите студента для просмотра оценок"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,20" />
+
+            <CollectionView x:Name="StudentsList" HeightRequest="600">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Stroke="#C9D1D9"
+                                StrokeThickness="2"
+                                StrokeShape="RoundRectangle 16"
+                                BackgroundColor="White"
+                                Padding="20"
+                                Margin="0,10">
+                            <Grid ColumnDefinitions="*, Auto">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnStudentTapped" />
+                                </Grid.GestureRecognizers>
+
+                                <VerticalStackLayout Spacing="8">
+                                    <Label Text="{Binding Name}"
+                                           FontSize="20"
+                                           FontAttributes="Bold"
+                                           TextColor="Black" />
+                                    <Label Text="{Binding AverageGrade, StringFormat='Средний балл: {0:F2}'}"
+                                           FontSize="17"
+                                           TextColor="#2563EB" />
+                                </VerticalStackLayout>
+
+                                <Label Grid.Column="1"
+                                       Text="→"
+                                       FontSize="28"
+                                       TextColor="#93C5FD"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

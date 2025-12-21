@@ -1,14 +1,25 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="LearningManagment.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:LearningManagment"
-    Title="LearningManagment">
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:LearningManagment"
+       x:Class="LearningManagment.AppShell"
+       Title="Электронный журнал">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <!-- Нижняя панель с двумя вкладками -->
+    <TabBar>
+        <!-- Вкладка "Журнал" — главная страница со списком студентов -->
+        <Tab Title="Журнал" Icon="journal.png">
+            <ShellContent
+                ContentTemplate="{DataTemplate local:MainPage}"
+                Route="MainPage" />
+        </Tab>
+
+        <!-- Вкладка "Оценки" — список студентов для просмотра оценок -->
+        <Tab Title="Оценки" Icon="grades.png">
+            <ShellContent
+                ContentTemplate="{DataTemplate local:StudentsGradesPage}"
+                Route="StudentsGradesPage" />
+        </Tab>
+    </TabBar>
 
 </Shell>

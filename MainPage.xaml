@@ -140,67 +140,6 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- Список студентов с средним баллом -->
-            <VerticalStackLayout Spacing="20" Margin="0,0,0,20">
-                <HorizontalStackLayout>
-                    <Label Text="Студенты и средние баллы" 
-               FontSize="18" 
-               FontAttributes="Bold" 
-               TextColor="Black"
-               VerticalOptions="Center" />
-                    <Button Text="Обновить" 
-                Clicked="RefreshList_Clicked" 
-                BackgroundColor="#6C757D" 
-                TextColor="White"
-                CornerRadius="8"
-                HeightRequest="40"
-                HorizontalOptions="End" />
-                </HorizontalStackLayout>
-
-                <CollectionView x:Name="StudentsList" HeightRequest="450">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <!-- Простая карточка с белым фоном и обводкой -->
-                            <Border Stroke="#C9D1D9"
-                        StrokeThickness="2"
-                        StrokeShape="RoundRectangle 16"
-                        BackgroundColor="White"
-                        Padding="20"
-                        Margin="10,10"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="Center">
-                                <Grid ColumnDefinitions="*" 
-                          RowDefinitions="Auto, Auto"
-                          RowSpacing="10">
-                                    <Grid.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="OnStudentTapped" />
-                                    </Grid.GestureRecognizers>
-
-                                    <!-- Имя по центру -->
-                                    <Label Text="{Binding Name}"
-                               FontSize="22"
-                               FontAttributes="Bold"
-                               TextColor="Black"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"
-                               Grid.Row="0"
-                               Grid.Column="0" />
-
-                                    <!-- Средний балл по центру ниже -->
-                                    <Label Text="{Binding AverageGrade, StringFormat='Средний балл: {0:F2}'}"
-                               FontSize="20"
-                               FontAttributes="Bold"
-                               TextColor="#1D4ED8"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"
-                               Grid.Row="1"
-                               Grid.Column="0" />
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </VerticalStackLayout>
 
         </VerticalStackLayout>
     </ScrollView>

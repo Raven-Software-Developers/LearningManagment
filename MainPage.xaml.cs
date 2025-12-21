@@ -21,8 +21,6 @@ public partial class MainPage : ContentPage
     {
         var students = _dbContext.Students.Include(s => s.Grades).ToList();
 
-        StudentsList.ItemsSource = students;  // <-- Это главное!
-
         StudentPicker.ItemsSource = students;
         StudentPicker.ItemDisplayBinding = new Binding("Name");
 
@@ -104,18 +102,4 @@ public partial class MainPage : ContentPage
         LoadData();
     }
 
-    private async void OnStudentTapped(object sender, TappedEventArgs e)
-    {
-        if ((sender as Grid)?.BindingContext is Student selectedStudent)
-        {
-            // Загружаем оценки для выбранного студента
-            _dbContext.Entry(selectedStudent).Collection(s => s.Grades).Load();
-            foreach (var grade in selectedStudent.Grades)
-            {
-                _dbContext.Entry(grade).Reference(g => g.Subject).Load();
-            }
-
-            await Navigation.PushAsync(new StudentDetailPage(selectedStudent));
-        }
-    }
 }
