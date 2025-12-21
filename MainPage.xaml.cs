@@ -32,7 +32,7 @@ public partial class MainPage : ContentPage
     {
         if (string.IsNullOrWhiteSpace(StudentNameEntry.Text))
         {
-            await DisplayAlert("Ошибка", "Введите имя студента", "OK");
+            await DisplayAlertAsync("Ошибка", "Введите имя студента", "OK");
             return;
         }
 
@@ -47,7 +47,7 @@ public partial class MainPage : ContentPage
     {
         if (string.IsNullOrWhiteSpace(SubjectNameEntry.Text))
         {
-            await DisplayAlert("Ошибка", "Введите название предмета", "OK");
+            await DisplayAlertAsync("Ошибка", "Введите название предмета", "OK");
             return;
         }
 
@@ -62,19 +62,19 @@ public partial class MainPage : ContentPage
     {
         if (StudentPicker.SelectedItem is not Student selectedStudent)
         {
-            await DisplayAlert("Ошибка", "Выберите студента", "OK");
+            await DisplayAlertAsync("Ошибка", "Выберите студента", "OK");
             return;
         }
 
         if (SubjectPicker.SelectedItem is not Subject selectedSubject)
         {
-            await DisplayAlert("Ошибка", "Выберите предмет", "OK");
+            await DisplayAlertAsync("Ошибка", "Выберите предмет", "OK");
             return;
         }
 
         if (!double.TryParse(GradeValueEntry.Text, out double value) || value < 1 || value > 5)
         {
-            await DisplayAlert("Ошибка", "Введите корректную оценку (от 1 до 5)", "OK");
+            await DisplayAlertAsync("Ошибка", "Введите корректную оценку (от 1 до 5)", "OK");
             return;
         }
 
